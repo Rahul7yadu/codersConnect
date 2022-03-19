@@ -1,7 +1,9 @@
 const express = require('express');
-const connectDb =require('./config/db');
+const cors = require('cors');
+const connectDb = require('./config/db');
 const app = express();
 console.log(typeof(app))
+app.use(cors({origin:'*'}))
 connectDb()
 
 

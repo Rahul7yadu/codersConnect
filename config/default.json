@@ -1,3 +1,6 @@
 {
-    "mongoURI":"mongodb+srv://devconnect123:devconnect123@cluster0.nixzv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    "mongoURI":"mongodb+srv://devconnect123:devconnect123@cluster0.nixzv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "jwtSecret":"mysecret",
+    "githubClientId":"f2be87828c08e230892d",
+    "githubSecret":"8e09467de294ef6a590213b43a40e9d1792eedbe"
 }
