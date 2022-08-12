@@ -154,7 +154,10 @@
     opacity: 0.9;
     background: var(--light-color);
     color: #333;
+    z-index: 2;
+    animation: fade;
   }
+  
   
   .btn-primary,
   .bg-primary,

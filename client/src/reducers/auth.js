@@ -13,7 +13,7 @@ export default function(state=initialState,action){
  
  switch(action.type){
      case REGISTER_SUCCESS:
-         console.log('successfully')
+         
          localStorage.setItem('token',action.payload.token)
          return {
              ...state,
@@ -48,7 +48,31 @@ const authSlice = createSlice({
          state.token=null
          state.isAuthenticated  = false
          state.loading = false
+         state.user = null
         
+        },userLoaded(state,action){
+            state.isAuthenticated= true
+            state.loading = false
+            state.user = action.payload
+        },authError(state,action){
+            localStorage.removeItem('token')
+            state.token = null
+            state.isAuthenticated = false
+            state.loading = false
+            
+        },logout(state){
+         localStorage.removeItem('token')
+            state.isAuthenticated = false
+            state.loading = false
+            state.token = null
+            state.user = null
+        },
+        accountDeleted(state){
+          localStorage.removeItem('token')
+            state.isAuthenticated = false
+            state.loading = false
+            state.token = null
+            state.user = null    
         }
     }
 

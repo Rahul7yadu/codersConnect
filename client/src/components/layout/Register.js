@@ -1,17 +1,17 @@
 import React,{Fragment,useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link,Navigate} from 'react-router-dom'
 
 import {setAlert,removeAlert} from '../../actions/alert'
-import {register,register2,fetchUserById} from '../../actions/auth'
+import {register,} from '../../actions/auth'
 import {alertAction,authAction} from '../../store'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import Alert from './Alert'
 
 
 
 function Register({}) {
   const dispatch = useDispatch()
-  
+  const isAuthenticated = useSelector(state=>state.auth.isAuthenticated)
       const [formData,setFormData] = useState({
        name:'',
         email:'',
@@ -26,21 +26,24 @@ function Register({}) {
     const submitHandler=(e)=>{
         e.preventDefault()
         if(password!==password2){
-          dispatch(alertAction.setAlert(setAlert('password not match','danger')))
+          dispatch(alertAction.setAlert({message:'password not match',alertType:'danger'}))
             
         }else{
          dispatch(alertAction.removeAlert())
           //  dispatch(register2({name,email,password}))
           dispatch(register({name, email, password}))
+         
             
         }
     }
-
+    if(isAuthenticated){
+      return <Navigate to = '/dashboard'/>
+    }
+     
         
   return (
     <Fragment>
 <section className="container">
-      <Alert></Alert>
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
       <form className="form" onSubmit={e=>submitHandler(e)}>

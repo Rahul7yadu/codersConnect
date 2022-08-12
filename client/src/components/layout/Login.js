@@ -1,8 +1,12 @@
 import React,{Fragment,useState} from 'react'
-import {Link} from 'react-router-dom'
-
+import {Link,Navigate} from 'react-router-dom'
+import {useDispatch,useSelector} from 'react-redux'
+import {loadUser, loginUser} from '../../actions/auth'
+import Alert from './Alert'
 function Login() {
-
+  const isAuthenticated = useSelector(state=>state.auth.isAuthenticated)
+  // 
+const dispatch = useDispatch()
     const [formData,setFormData] = useState({
       
         email:'',
@@ -16,8 +20,14 @@ function Login() {
     const submitHandler=(e)=>{
         e.preventDefault()
         
+        dispatch(loginUser(formData))
+        dispatch(loadUser())
+        
     }
-
+    if(isAuthenticated){
+      
+      return <Navigate to = '/dashboard'/>
+    }
         
   return (
     <Fragment>
@@ -48,6 +58,7 @@ function Login() {
       <p className="my-1">
         Dont have an account? <Link to="/register">Register here</Link>
       </p>
+      <Alert></Alert>
     </section>
 
     </Fragment>

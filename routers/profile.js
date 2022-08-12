@@ -9,9 +9,9 @@ routes.get('/me',auth,async (req, res) => {
 
 let userProfile = await Profile.findOne({user:req.user.id}).populate('user',["name",'avatar'])
 if(!userProfile){
-  return  res.json({error:"no profile for the user"})
+  return  res.status(400).json({error:"no profile for the user"})
 }
-res.send("your profile")
+res.json(userProfile)
 
 })
 
@@ -25,7 +25,7 @@ routes.post('/me',[auth,
         }
         try{
 
-             console.log("inside")
+             
             
 
 
@@ -50,7 +50,7 @@ routes.post('/me',[auth,
               profileFields.user = req.user.id
               profileFields.skills = skills.split(',').map((e)=>e.trim())
               profileFields.status = status
-            console.log(profileFields.user)
+            
               if(company) profileFields.company = company
               if(website) profileFields.website = website
                profileFields.status = status
@@ -97,7 +97,7 @@ routes.get('/',async (req, res)=>{
 
 routes.get('/user/:user_id',async (req, res)=>{
 try {
-    const profile = await Profile.find({user:req.params.user_id})
+    const profile = await Profile.find({user:req.params.user_id}).populate('user',['name','avatar'])
     if(profile.length<1) res.json({message:"there is no profile for this user"})
     res.json(profile)
 
@@ -133,10 +133,11 @@ try{
     
     profile.experience.unshift(newExperience)
     await profile.save(profile)
+    
     res.json(profile)
 
 }catch(err){
-console.log(err)
+
 res.send('server error')
 }
 })
@@ -146,7 +147,7 @@ routes.delete('/experience/:exp_id',auth,async (req,res)=>{
    let profile =  await Profile.findOne({user:req.user.id})
   
    let index = profile.experience.findIndex((e)=>e.id == req.params.exp_id) 
-   console.log(index)
+   
    if(index!=-1){
 
        profile.experience.splice(index,1)
@@ -180,7 +181,7 @@ routes.put('/education',auth,[
         res.json(profile)
     
     }catch(err){
-    console.log(err)
+    
     res.send('server error')
     }
     })
@@ -189,7 +190,7 @@ routes.put('/education',auth,[
         let profile =  await Profile.findOne({user:req.user.id})
        
         let index = profile.education.findIndex((e)=>e.id == req.params.edu_id) 
-        console.log(index)
+        
         if(index!=-1){
      
             profile.education.splice(index,1)

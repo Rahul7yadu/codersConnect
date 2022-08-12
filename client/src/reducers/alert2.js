@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 import {SET_ALERT }from '../actions/type'
 import { REMOVE_ALERT } from '../actions/type'
 const initialState = []
-console.log('from reducer')
+
 const alert = (state = initialState,action)=>{
-    console.log(action)
+    
     const {type,payload} = action
     switch(type) {
         case SET_ALERT:

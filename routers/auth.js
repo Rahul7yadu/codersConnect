@@ -9,11 +9,12 @@ const config = require('config')
 const {check,validationResult} = require('express-validator')
 const routes = express.Router()
 
-routes.get('/',[
+routes.post('/',[
 
 check('email','email is not valid').isEmail(),
 check('password','password is not valid').exists()],async (req, res) => {
     const error = validationResult(req)
+    
     if(!error.isEmpty()){
      return   res.status(400).json({message:error.array()})
     }
@@ -22,7 +23,7 @@ try{
     const user =  await User.findOne({email})
     const isMatch = await bcrypt.compare(password,user.password)
 if(!isMatch){
-    return res.status(400).json({message:"invalid credentials"})
+    return res.json({message:"invalid credentials"}).status(400)
 }
      //creating jsonWebToken for the user and giving it back 
      const payload =  {
@@ -35,7 +36,7 @@ if(!isMatch){
     })
 }catch(err){
     res.status(401).send({error:['invalid credentials']})
-console.log(err)
+
 }
  
 

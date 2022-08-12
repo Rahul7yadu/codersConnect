@@ -1,19 +1,22 @@
-import React from "react";
-import { useSelector } from "react-redux";
-
+import React,{useEffect} from "react";
+import { useSelector, useDispatch} from "react-redux";
+import { alertAction } from "../../store";
 
 export const Alert = () => {
-  const state = useSelector(state=>state)
-  console.log(state)
-  const alerts = useSelector(state=>state.alert)
-  
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    setTimeout(()=>{
+      dispatch(alertAction.removeAlert())
+    },3000)
+  },[Alert])
+  const  alerts = useSelector(state=>state.alert)
   return(
 
     alerts !== null &&
     alerts.length > 0 &&
     alerts.map((alert) => (
-      <div key={alert.id} className={`alert alert-${alert.alertType}`}>
-        {alert.msg}
+      <div key={Math.random()} className={`alert alert-${alert.alertType}`} style = {{position:'fixed',top:100,right:'40%'}} >
+        {alert.message}
       </div>
         )
 

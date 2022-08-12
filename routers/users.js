@@ -6,9 +6,18 @@ const jwt = require('jsonWebToken')
 const routes = express.Router()
 const User = require('../models/Users')
 const config = require('config')
+
 const {check,validationResult} = require('express-validator')
 const Profile = require('../models/Profile')
-
+routes.get('/',auth,async (req,res)=>{
+    try {
+        const user = await User.findById(req.user.id).select('-password')
+        res.json(user)
+    } catch (error) {
+        res.json(error) 
+    }
+   
+})
 routes.post('/',[
     check('name','name is not valid').not().notEmpty(),
     check('email','email is not valid').isEmail(),
@@ -17,16 +26,16 @@ routes.post('/',[
     // validating user data error.array()
     const error = validationResult(req)
     if(!error.isEmpty()){
-     return   res.status(400).json({message:'validation error'})
+        
+     return   res.status(400).json({message:error})
     }
-
     const {name,email,password} = req.body
     try{
         // checking if  user already exist in database
         let user = await User.findOne({email})
      
         if(user){
-        res.status(400).json({error:[{message:"user already exist"}]})
+        res.status(200).json({error:[{message:"user already exist"}]})
         return
         }
 
@@ -55,7 +64,7 @@ routes.post('/',[
 
         })
 }catch(err){
-    console.log(err)
+    
     res.status(500).send("server Error")
 }
 })

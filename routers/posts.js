@@ -38,13 +38,13 @@ routes.post('/',auth,[check('text','text is required').not().isEmpty()],async (r
 })
 routes.get('/',auth,async (req,res)=>{
     try {
-        console.log(req.user.id)
-        const post =   await Post.find({user: req.user.id})
+        
+        const post =   await Post.find()
 
         res.json(post)
         
     } catch (error) {
-        console.log(error)
+        
         res.status(500).send('server error')
     }
   
@@ -53,17 +53,18 @@ routes.get('/',auth,async (req,res)=>{
 })
 
 routes.get('/:post_id',auth,async (req,res)=>{
+    console.log(req.params.post_id)
     try {
-        console.log(req.user.id)
+        
         const post =   await Post.findById(req.params.post_id)
-        if(post.user.toString()!=req.user.id){
-            res.json({message:'user not authenticated'})
-        }
+        // if(post.user.toString()!=req.user.id){
+        //   return  res.json({message:'user not authenticated'})
+        // }
         res.json(post)
         
     } catch (error) {
-        if(error.kind === 'ObjectId') res.json({msg:'post not found'})
-        console.log(error)
+        if(error.kind === 'ObjectId') return res.json(error.message)
+        
         res.status(500).send('server error')
     }
   
@@ -75,16 +76,16 @@ routes.get('/:post_id',auth,async (req,res)=>{
 
 routes.delete('/:post_id',auth,async (req,res)=>{
     try {
-        console.log(req.user.id)
+        
         const post =   await Post.findByIdAndRemove(req.params.post_id)
         if(post.user.toString()!=req.user.id){
-            res.json({message:'user not authenticated'})
+          return  res.json({message:'user not authenticated'})
         }
         res.json(post)
         
     } catch (error) {
         if(error.kind === 'ObjectId') res.json({msg:'post not found'})
-        console.log(error)
+        
         res.status(500).send('server error')
     }
   })
@@ -93,20 +94,21 @@ routes.delete('/:post_id',auth,async (req,res)=>{
 
 
     try {
+        console.log(req.params.id)
        const post =  await Post.findById(req.params.id)
        if(post == null) {
            return res.json({msg:"nothing found in db"})
        }
       if(post.likes.filter(like=>like.user.toString()==req.user.id).length!=0){
-          return res.json({msg:"post already liked"})
+          return res.json(post.likes)
       }
       
         post.likes.push({user:req.user.id})
         await post.save()
-        res.json({msg:'post liked'})
+        res.json(post.likes)
     } catch (error) {
-        console.log(error)
-        res.send('server error')
+        
+        res.send(error.message)
     }
   })
 
@@ -119,11 +121,11 @@ routes.delete('/:post_id',auth,async (req,res)=>{
        }
 
    if( post.likes.filter(like=>like.user.toString()===req.user.id).length===0){
-       return res.json({msg:'post not liked yet'})
+       return res.json(post.likes)
    }  
     post.likes = post.likes.filter(like=>like.user.toString()!==req.user.id)
     await post.save()
-        res.json({msg:'unliked'})
+        res.json(post.likes)
     } catch (error) {
         console.error(error)
         res.send('server error')
@@ -145,11 +147,11 @@ routes.delete('/:post_id',auth,async (req,res)=>{
       const post = await Post.findById(req.params.id)
       post.comments.unshift(newComment)
       await post.save()
-      res.json({msg:'comment added'})
+      res.json(post.comments)
         
         
     } catch (error) {
-        console.log(error)
+        
         res.send('server error')
     }
   })
@@ -171,7 +173,7 @@ routes.delete('/:post_id',auth,async (req,res)=>{
        post.comments = post.comments.filter(comment => comment._id.toString()!==req.params.comment_id)
     
         await post.save()
-        res.json({msg:'comment deleted'})
+        res.json(post.comments)
     } catch (error) {
         console.error(error)
         res.send('server error')
