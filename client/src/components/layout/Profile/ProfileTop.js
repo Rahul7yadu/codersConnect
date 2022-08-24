@@ -2,9 +2,9 @@ import React from "react";
 import {useSelector} from "react-redux"
 const ProfileTop = () => {
 const profile = useSelector(state=>state.profile.profile)
-    console.log(profile)
+    
 const {status,user,company,location,website,social} = profile[0]
-console.log(status)
+
   return (
    
      

@@ -3,7 +3,7 @@ import axios from "axios";
 export const getCurrentProfile = () => {
   return async(dispatch) => {
       try {
-          const res = await axios.get("http://localhost:5000/api/profile/me");
+          const res = await axios.get("api/profile/me");
           dispatch(profileAction.getProfile(res.data))
       } catch (error) {
           dispatch(profileAction.profileError({msg:error.response.statusText,status:error.response.status}))
@@ -19,7 +19,7 @@ return async (dispatch) => {
         headers: { 'Content-type':'application/json'}
     }
     try {
-        const res = await axios.post("http://localhost:5000/api/profile/me",data,config)
+        const res = await axios.post("api/profile/me",data,config)
         dispatch(profileAction.setProfile(res.data))
             dispatch(alertAction.removeAlert())
         dispatch(alertAction.setAlert({message:'profile set succesfully',alertType:'success'}))
@@ -38,7 +38,7 @@ export const getAllProfiles =  () => {
         headers: { 'Content-type':'application/json'}
     }
     try {
-        const res = await axios.get("http://localhost:5000/api/profile",config)
+        const res = await axios.get("api/profile",config)
         dispatch(profileAction.getAllProfiles(res.data))
     } catch (error) {
         
@@ -51,12 +51,10 @@ export const getAllProfiles =  () => {
 
 export const getProfileById =  (id) => {
     return async (dispatch) => {
-    const config = {
-        headers: { 'Content-type':'application/json'}
-    }
+    
     try {
-        const res = await axios.get(`http://localhost:5000/api/profile/user/${id}`,config)
-        // dispatch(profileAction.clearProfile())   
+        const res = await axios.get(`/api/profile/user/${id}`)
+        dispatch(profileAction.clearProfile())   
         dispatch(profileAction.getProfile(res.data))
     } catch (error) {
         
@@ -72,7 +70,7 @@ export const getGithubRepos=  (githubusername) => {
         headers: { 'Content-type':'application/json'}
     }
     try {
-        const res = await axios.get(`http://localhost:5000/api/profile/github/${githubusername}`,config)
+        const res = await axios.get(`/api/profile/github/${githubusername}`,config)
         dispatch(profileAction.getRepos(res.data))
     } catch (error) {
         
@@ -90,7 +88,7 @@ export const addExperience=(experience)=>{
         }
         try {
             
-            const res = await axios.put("http://localhost:5000/api/profile/experience",data,config)
+            const res = await axios.put("api/profile/experience",data,config)
             dispatch(profileAction.setProfile(res.data))
             dispatch(alertAction.removeAlert())
             dispatch(alertAction.setAlert({message:'Experience added',alertType:'success'}))
@@ -108,7 +106,7 @@ export const addEducation=(education)=>{
             headers: { 'Content-type':'application/json'}
         }
         try {
-            const res = await axios.put("http://localhost:5000/api/profile/education",data,config)
+            const res = await axios.put("api/profile/education",data,config)
             dispatch(profileAction.setProfile(res.data))
             dispatch(alertAction.removeAlert())
             dispatch(alertAction.setAlert({message:'Education added',alertType:'success'}))
@@ -125,7 +123,7 @@ export const deleteEducation=(edu_id)=>{
             headers: { 'Content-type':'application/json'}
         }
         try {
-            const res = await axios.delete(`http://localhost:5000/api/profile/education/${edu_id}`,config)
+            const res = await axios.delete(`api/profile/education/${edu_id}`,config)
             dispatch(profileAction.setProfile(res.data))
             dispatch(alertAction.removeAlert())
             dispatch(alertAction.setAlert({message:'Education deleted',alertType:'success'}))
@@ -142,7 +140,7 @@ export const deleteExperience=(exp_id)=>{
             headers: { 'Content-type':'application/json'}
         }
         try {
-            const res = await axios.delete(`http://localhost:5000/api/profile/experience/${exp_id}`,config)
+            const res = await axios.delete(`api/profile/experience/${exp_id}`,config)
             dispatch(profileAction.setProfile(res.data))
             dispatch(alertAction.removeAlert())
             dispatch(alertAction.setAlert({message:'Experience deleted',alertType:'success'}))
@@ -161,7 +159,7 @@ export const deleteAccount=(exp_id)=>{
         if(window.confirm('Are you sure? this cannot be undone!')){
 
         try {
-            const res = await axios.delete(`http://localhost:5000/api/users/me`,config)
+            const res = await axios.delete(`api/users/me`,config)
             dispatch(profileAction.clearProfile())
             dispatch(alertAction.removeAlert())
             dispatch(alertAction.setAlert({message:'Your account has been deleted successfully',alertType:'success'}))

@@ -3,7 +3,7 @@ import { alertAction, postAction } from "../store";
 export const getPosts = () => {
   return async (dispatch) => {
     try {
-      const res = await axios.get("http://localhost:5000/api/posts");
+      const res = await axios.get("api/posts");
       dispatch(postAction.getPosts(res.data));
     } catch (error) {
       dispatch(postAction.postsError(error.message));
@@ -13,7 +13,7 @@ export const getPosts = () => {
 export const addLike = (id) => {
   return async (dispatch) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/posts/like/${id}`);
+      const res = await axios.put(`api/posts/like/${id}`);
       dispatch(postAction.updateLikes({ id, likes: res.data }));
     } catch (error) {
       dispatch(postAction.postsError(error.message));
@@ -24,7 +24,7 @@ export const removeLike = (id) => {
   return async (dispatch) => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/posts/unlike/${id}`
+        `api/posts/unlike/${id}`
       );
       dispatch(postAction.updateLikes({ id, likes: res.data }));
     } catch (error) {
@@ -36,7 +36,7 @@ export const removeLike = (id) => {
 export const deletePost = (id) => {
   return async (dispatch) => {
     try {
-      const res = await axios.delete(`http://localhost:5000/api/posts/${id}`);
+      const res = await axios.delete(`api/posts/${id}`);
       dispatch(postAction.deletePosts(id));
       dispatch(
         alertAction.setAlert({ message: "post removed", alertType: "success" })
@@ -59,7 +59,7 @@ export const addPost = (formData) => {
   return async (dispatch) => {
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/posts`,
+        `api/posts`,
         formData,
         config
       );
@@ -81,7 +81,7 @@ export const addPost = (formData) => {
 export const getPost = (id) => {
   return async (dispatch) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/posts/${id}`);
+      const res = await axios.get(`api/posts/${id}`);
       dispatch(postAction.getPost(res.data));
     } catch (error) {
       dispatch(postAction.postsError(error.message));
@@ -95,7 +95,7 @@ export const addComment = ( post_id, formData ) => {
   return async (dispatch) => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/posts/comment/${post_id}`,formData,config
+        `api/posts/comment/${post_id}`,formData,config
       );
       dispatch(postAction.addComment(res.data));
       dispatch(alertAction.setAlert({message:'comment added',alertType:'success'}))
@@ -109,7 +109,7 @@ export const deleteComment = ({ post_id, comment_id}) => {
   return async (dispatch) => {
     try {
       const res = await axios.delete(
-        `http://localhost:5000/api/posts/uncomment/${post_id}/${comment_id}`,
+        `api/posts/uncomment/${post_id}/${comment_id}`,
       );
       dispatch(postAction.deleteComment({comment_id}));
       dispatch(alertAction.setAlert({message:'comment deleted',alertType:'success'}))

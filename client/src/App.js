@@ -30,9 +30,12 @@ const dispatch = useDispatch()
 const isAuthenticated = useSelector(state=>state.auth.isAuthenticated)
 const token = useSelector(state=>state.auth.token)
 useEffect(()=>{
+  
  if (localStorage.token) {
+  
       // if there is a token set axios headers for all requests
       setAuthToken(localStorage.token);
+      dispatch(loadUser())
     } 
   
 if(isAuthenticated){
@@ -66,6 +69,8 @@ if(isAuthenticated){
           <Route exact path='/dashboard/create-profile' element = {<PrivateRoute component={<CreateProfile/>}/>}/>
           <Route exact path = '/register/add-profile' element = {<PrivateRoute component={<AddProfile></AddProfile>}/>}></Route>
           <Route exact path = '/edit-profile' element = {<PrivateRoute component={<EditProfile/>}/>}/>
+          
+
           <Route exact path = '/add-education' element = {<PrivateRoute component={<AddEducation/>}/>}></Route>
           <Route exact path = '/add-experience' element = {<PrivateRoute component ={<AddExperience/>}/>}></Route>
           <Route exact path = '/posts' element = {<PrivateRoute component={<Posts/>}/>} />

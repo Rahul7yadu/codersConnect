@@ -15,14 +15,14 @@ const Post = () => {
   useEffect(() => {
     dispatch(getPost(id));
   }, [dispatch, id]);
-  console.log({ post }, "from single post.js");
+  
   return (
     <>
       {post === null || loading ? (
         <Spinner />
       ) : (
-        <>
-          <Link to="/posts">back to posts</Link>
+        <section className="container">
+          <Link to="/posts" className="bg bg-light"><button>back to posts</button></Link>
           {<PostItem showAction={false} post={post} />}
           <CommentForm post_id={id} />
           {post.comments.length > 0 ? (
@@ -38,7 +38,7 @@ const Post = () => {
           ) : (
             <div>no comments</div>
           )}
-        </>
+        </section>
       )}
     </>
   );

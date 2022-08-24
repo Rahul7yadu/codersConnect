@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const CommentItem = ({comment,user_id}) => {
     const {text,name, avatar,date} = comment
-    console.log(comment)
+    
   return (
       <div className="comments">
         <div>comment Item</div>

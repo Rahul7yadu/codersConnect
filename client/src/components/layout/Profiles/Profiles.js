@@ -11,7 +11,7 @@ const Profiles = () => {
         dispatch(getAllProfiles())
     },[])
   return (
-    <div style = {{marginTop:"100px"}}>
+    <div className='container'>
         {profiles.length<=0&&loading?<Spinner/>:(<>
         <h1 className = 'large text-primary'>Developers</h1>
         <p className = 'lead'>

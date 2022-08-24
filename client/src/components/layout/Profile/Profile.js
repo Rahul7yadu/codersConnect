@@ -22,12 +22,12 @@ const Profile = ({}) => {
   return (
     <>
       {profile[0] && (
-        <>
+        <section className="container">
           <Link to="/profiles" className="btn btn-light">
             back
           </Link>
           {auth.isAuthenticated && auth.user._id === id && (
-            <Link to="create-profile" className="btn btn-light">
+            <Link to="/edit-profile" className="btn btn-light">
               edit profile
             </Link>
           )}
@@ -55,7 +55,7 @@ const Profile = ({}) => {
               <ProfileGithub username = {profile[0].githubusername}/>
           </div>
           
-        </>
+        </section>
       )}
     </>
   );

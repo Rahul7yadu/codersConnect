@@ -7,20 +7,20 @@ import PostsItem from './PostsItem'
 const Posts = () => {
   const loading = useSelector((state) =>state.post.loading)
   const posts = useSelector(state=>state.post.posts)
-  console.log({posts})
+  
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(getPosts())
   },[dispatch])
   return (
-    <div style = {{marginTop:'100px'}}>{loading?<Spinner/>:<>
+    <div className='container'>{loading?<Spinner/>:<>
     <h1 className="large text-primary">posts</h1>
     <p className="lead">
-      <i className="fas fa-user">Welcome to community</i>
+      <i className="fas fa-user"><span>Welcome to community</span></i>
     </p>
-    <PostForm/>
+    <PostForm/> 
     <div className="posts">
-      {posts.length>0&&posts.map(post=>(
+      {posts.length&&posts.map(post=>(
         <PostsItem key = {post._id} post = {post}/>
       ))}
     </div>

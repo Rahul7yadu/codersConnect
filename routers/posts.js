@@ -53,7 +53,7 @@ routes.get('/',auth,async (req,res)=>{
 })
 
 routes.get('/:post_id',auth,async (req,res)=>{
-    console.log(req.params.post_id)
+    
     try {
         
         const post =   await Post.findById(req.params.post_id)
@@ -94,7 +94,7 @@ routes.delete('/:post_id',auth,async (req,res)=>{
 
 
     try {
-        console.log(req.params.id)
+        
        const post =  await Post.findById(req.params.id)
        if(post == null) {
            return res.json({msg:"nothing found in db"})

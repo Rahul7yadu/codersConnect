@@ -2,7 +2,7 @@ import axios from "axios";
 import { authAction, alertAction,profileAction } from "../store";
 import { setAlert } from "./alert";
 import setAuthToken from "../utils/setAuthToken";
-const uri = "http://localhost:5000/api/users";
+const uri = "/api/users";
 export const register = ({ name, email, password }) => {
   return async (dispatch) => {
     let body = { name, email, password };
@@ -35,7 +35,7 @@ export const loadUser = () => {
       setAuthToken(localStorage.getItem('token'));
     
     try {
-      const res = await axios.get('http://localhost:5000/api/users');
+      const res = await axios.get('api/users');
       dispatch(authAction.userLoaded(res.data));
     } catch (error) {
       dispatch(authAction.authError());
@@ -53,7 +53,7 @@ return async (dispatch) => {
         },
       };
       try {
-      const res = await axios.post('http://localhost:5000/api/auth',body,config)
+      const res = await axios.post('api/auth',body,config)
       dispatch(authAction.registerSuccess(res.data));
         
       } catch (error) {

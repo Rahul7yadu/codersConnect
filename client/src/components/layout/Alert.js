@@ -3,13 +3,14 @@ import { useSelector, useDispatch} from "react-redux";
 import { alertAction } from "../../store";
 
 export const Alert = () => {
+  const  alerts = useSelector(state=>state.alert)
   const dispatch = useDispatch()
   useEffect(()=>{
     setTimeout(()=>{
       dispatch(alertAction.removeAlert())
     },3000)
-  },[Alert])
-  const  alerts = useSelector(state=>state.alert)
+  },[alerts])
+  
   return(
 
     alerts !== null &&
