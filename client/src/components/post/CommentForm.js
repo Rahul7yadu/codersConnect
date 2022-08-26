@@ -19,7 +19,7 @@ const dispatch = useDispatch()
             name="text"
             cols="30"
             rows="5"
-            placeholder="Create a post"
+            placeholder="create comment"
             required
             value={text}
             onChange={(e)=>{setText(e.target.value)}}

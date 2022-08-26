@@ -18,7 +18,7 @@ const Post = () => {
   
   return (
     <>
-      {post === null || loading ? (
+      {post===null || loading ? (
         <Spinner />
       ) : (
         <section className="container">

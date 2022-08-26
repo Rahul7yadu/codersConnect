@@ -81,7 +81,7 @@ export const addPost = (formData) => {
 export const getPost = (id) => {
   return async (dispatch) => {
     try {
-      const res = await axios.get(`api/posts/${id}`);
+      const res = await axios.get(`/api/posts/${id}`);
       dispatch(postAction.getPost(res.data));
     } catch (error) {
       dispatch(postAction.postsError(error.message));
@@ -95,7 +95,7 @@ export const addComment = ( post_id, formData ) => {
   return async (dispatch) => {
     try {
       const res = await axios.put(
-        `api/posts/comment/${post_id}`,formData,config
+        `/api/posts/comment/${post_id}`,formData,config
       );
       dispatch(postAction.addComment(res.data));
       dispatch(alertAction.setAlert({message:'comment added',alertType:'success'}))
