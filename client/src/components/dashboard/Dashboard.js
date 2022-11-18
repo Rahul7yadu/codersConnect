@@ -45,6 +45,7 @@ const Dashboard = () => {
               <>
               
               <DashboardAction/>
+              {console.log(profile.experience)}
                 {profile.experience&&<Experience experience={profile.experience}/>}
                 
                 {profile.education&&<Education education = {profile.education}/>}

@@ -8,7 +8,8 @@ if(!token){
     return res.send("please provide auth token").status(401)
 }
 try{
-    const decoded = jwt.verify(token,config.get('jwtSecret'))
+    const decoded = jwt.verify(token,process.env.jwtSecret)
+    
     req.user = decoded.user
     
     

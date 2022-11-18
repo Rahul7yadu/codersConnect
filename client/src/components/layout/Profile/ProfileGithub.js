@@ -12,7 +12,7 @@ const ProfileGithub = ({ username }) => {
       <h2 className="text-primary my-1">
         <i className="fab fa-github"></i> Github Repos
       </h2>
-      {repos &&
+      {repos ?
         repos.map((repo,index) => (
           <div key={index} className="repo bg-white p-1 my-1">
             <div>
@@ -37,7 +37,7 @@ const ProfileGithub = ({ username }) => {
           </ul>
         </div>
           </div>
-        ))}
+        )):<div>no repos</div>}
       <div className="repo bg-white p-1 my-1">
         
       </div>

@@ -21,7 +21,7 @@ const dispatch = useDispatch()
         e.preventDefault()
         
         dispatch(loginUser(formData))
-        dispatch(loadUser())
+        // dispatch(loadUser())
         
     }
     if(isAuthenticated){

@@ -1,4 +1,4 @@
-import { SET_ALERT,REMOVE_ALERT } from "./type";
+import { REMOVE_ALERT } from "./type";
 import { v4 as uuidv4 } from 'uuid';
 
 export const setAlert = (msg,alertType) => {

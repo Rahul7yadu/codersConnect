@@ -1,6 +1,6 @@
 const express = require('express');
 const request = require('request');
-const config = require('config')
+// const config = require('config')
 const routes = express.Router()
 const auth = require('../middleware/auth')
 const {check,validationResult} = require('express-validator')
@@ -202,24 +202,25 @@ routes.put('/education',auth,[
     )
     // getting github repo data with name
     routes.get('/github/:username',(req, res)=>{
-
+        const githubClientId = process.env.githubClientId
+        const githubSecret = process.env.githubSecret
         try {
             const option = {
                 uri:`https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc
-                &client_id=${config.get('githubClientId')}&client_secret=${config.get('githubSecret')}`,
+                &client_id=${githubClientId}&client_secret=${githubSecret}`,
                 method: 'GET',
                 headers: {'user-agent':'node.js'}
             }
             request(option, (error,response,body)=>{
                 if(error) throw new Error(error)
                 if(response.statusCode!==200){
-                    res.status(404).json({message:'no github data found'})
+                   return res.status(404).json({message:'no github data found'})
                 }
                 res.json(JSON.parse(body))
             }) 
         } catch (error) {
             console.error(error)
-            res.send('server error')
+            res.send('could not find github repos')
         }
         
 

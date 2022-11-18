@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import "./App.css";
 import setAuthToken from './utils/setAuthToken'
 import Alert from "./components/layout/Alert"
-import {loadUser, logout} from './actions/auth'
+import {loadUser } from './actions/auth'
 // redux
 import {useDispatch,useSelector} from 'react-redux'
 import AddProfile from "./components/layout/AddProfile";
@@ -20,7 +20,6 @@ import AddExperience from "./components/profile-forms/AddExperience";
 import Profiles from './components/layout/Profiles/Profiles'
 import Posts from "./components/posts/Posts";
 import Post from './components/post/Post'
-import { alertAction } from "./store";
 import {PrivateRoute} from "./components/PrivateRoute";
 // localStorage.removeItem('token')
 
@@ -44,7 +43,7 @@ if(isAuthenticated){
 
 
 
-},[isAuthenticated,token])
+},[isAuthenticated,token,dispatch])
   
 
   return (
