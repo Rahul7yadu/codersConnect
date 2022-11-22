@@ -3,7 +3,7 @@ import {useSelector} from "react-redux"
 const ProfileTop = () => {
 const profile = useSelector(state=>state.profile.profile)
     
-const {status,user,company,location,website,social} = profile[0]
+const {status,user,company,location,website,social,twitter,linkedin,instagram,youtube} = profile[0]
 
   return (
    
@@ -22,7 +22,7 @@ const {status,user,company,location,website,social} = profile[0]
         <a href={website} target="_blank" rel="noopener noreferrer">
           <i className="fas fa-globe fa-2x"></i>
         </a>} 
-        {social && social.twitter &&
+        {twitter &&
         <a href="#" target="_blank" rel="noopener noreferrer">
           <i className="fab fa-twitter fa-2x"></i>
         </a>}
@@ -34,7 +34,7 @@ const {status,user,company,location,website,social} = profile[0]
         <a href="#" target="_blank" rel="noopener noreferrer">
           <i className="fab fa-linkedin fa-2x"></i>
         </a>}
-        {social&&social.youtube&&
+        {youtube&&
         <a href="#" target="_blank" rel="noopener noreferrer">
           <i className="fab fa-youtube fa-2x"></i>
         </a>}

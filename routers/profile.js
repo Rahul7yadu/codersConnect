@@ -6,8 +6,10 @@ const auth = require('../middleware/auth')
 const {check,validationResult} = require('express-validator')
 const Profile = require('../models/Profile')
 routes.get('/me',auth,async (req, res) => {
+// console.log(req.user.id)
 
-let userProfile = await Profile.findOne({user:req.user.id}).populate('user',["name",'avatar'])
+let userProfile = await Profile.find({user:req.user.id}).populate('user',["name",'avatar'])
+// console.log(userProfile)
 if(!userProfile){
   return  res.status(400).json({error:"no profile for the user"})
 }
@@ -98,7 +100,7 @@ routes.get('/',async (req, res)=>{
 routes.get('/user/:user_id',async (req, res)=>{
 try {
     const profile = await Profile.find({user:req.params.user_id}).populate('user',['name','avatar'])
-    if(profile.length<1) res.json({message:"there is no profile for this user"})
+    if(profile.length<1) return res.status(404).json({message:"there is no profile for this user"})
     res.json(profile)
 
 } catch (error) {
@@ -214,7 +216,9 @@ routes.put('/education',auth,[
             request(option, (error,response,body)=>{
                 if(error) throw new Error(error)
                 if(response.statusCode!==200){
+                    console.log(response)
                    return res.status(404).json({message:'no github data found'})
+                   
                 }
                 res.json(JSON.parse(body))
             }) 

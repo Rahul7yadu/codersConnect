@@ -18,10 +18,10 @@ const Profile = ({}) => {
   useEffect(() => {
     dispatch(getProfileById(id));
   }, []);
-
+console.log(profile)
   return (
     <>
-      {profile[0] && (
+      {profile.length>0 ? (
         <section className="container">
           <Link to="/profiles" className="btn btn-light">
             back
@@ -56,7 +56,7 @@ const Profile = ({}) => {
           </div>
           
         </section>
-      )}
+      ):<div className="container">no profile found for this user</div>}
     </>
   );
 };

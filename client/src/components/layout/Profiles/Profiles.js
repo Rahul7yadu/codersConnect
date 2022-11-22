@@ -18,6 +18,7 @@ const Profiles = () => {
             <i className = 'fab fa-connectdevelo'></i>Browse and connect with developers
         </p>
         <div className = 'profiles'>
+            {loading&&<Spinner/>}
             {profiles.length>0? profiles.map((profile)=><ProfileItems key={profile._id} profile = {profile}/>) :(<h4>No profile found</h4>)}
         </div>
         </>)}

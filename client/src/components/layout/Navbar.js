@@ -28,15 +28,15 @@ function Navbar() {
         <Link to="/dashboard"> Dashboard</Link>
       </li>
       <li>
-        <Link to="/posts"> posts</Link>
+        <i className=""><Link to="/posts"> posts</Link></i>
       </li>
       <li>
-        <i className="fab fa-connectdevelop"><Link to ='/profiles'> Developers</Link>
+        <i className=""><Link to ='/profiles'> Developers</Link>
         </i>
       </li>
-      <li>
+      <li >
         <a onClick={logoutHandler}>
-          <i className="fas fa-sign-out-alt"></i><span className="hide-sm"> Logout</span>
+          <i className=""></i><span className="hide-sm"> Logout</span>
         </a>
       </li>
     </ul>

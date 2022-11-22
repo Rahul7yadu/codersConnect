@@ -65,7 +65,7 @@ if(isAuthenticated){
           <Route exact path='/login' element = {<Login/>}></Route>
           <Route exact path='/register' element = {<Register/>}></Route>
           <Route exact path='/dashboard' element = {<PrivateRoute component={<Dashboard/>}/>}></Route>
-          <Route exact path='/dashboard/create-profile' element = {<PrivateRoute component={<CreateProfile/>}/>}/>
+          <Route exact path='/create-profile' element = {<PrivateRoute component={<CreateProfile/>}/>}/>
           <Route exact path = '/register/add-profile' element = {<PrivateRoute component={<AddProfile></AddProfile>}/>}></Route>
           <Route exact path = '/edit-profile' element = {<PrivateRoute component={<EditProfile/>}/>}/>
           

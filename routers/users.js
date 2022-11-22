@@ -14,7 +14,7 @@ routes.get('/',auth,async (req,res)=>{
         const user = await User.findById(req.user.id).select('-password')
         res.json(user)
     } catch (error) {
-        res.json(error) 
+        res.status(401).json(error) 
     }
    
 })
@@ -35,7 +35,7 @@ routes.post('/',[
         let user = await User.findOne({email})
      
         if(user){
-        res.status(200).json({error:[{message:"user already exist"}]})
+        res.status(400).json({error:[{message:"user already exist"}]})
         return
         }
 
@@ -56,9 +56,9 @@ routes.post('/',[
 
      //creating jsonWebToken for the user and giving it back 
         const payload =  {
-            user:{id:user.id}
+            user:{id:user._id}
     }
-        jwt.sign(payload,config.get('jwtSecret'),{expiresIn:36000},(err,token)=>{
+        jwt.sign(payload,process.env.jwtSecret,{expiresIn:36000},(err,token)=>{
             if(err) throw err
             res.json({token})
 

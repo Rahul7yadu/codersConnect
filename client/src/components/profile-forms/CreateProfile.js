@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {Link,useNavigate} from 'react-router-dom'
-import {useDispatch} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 import { setProfile } from '../../actions/profile';
 const initialState = {
     company: '',
@@ -18,6 +18,9 @@ const initialState = {
   };
 const CreateProfile = () => {
   const navigate = useNavigate()
+  const profile = useSelector(state=>state.profile.profile)
+
+  
     const [social,setSocial] = useState(false)
     const [formData,setFormData] = useState(initialState)
     const dispatch = useDispatch()
@@ -26,7 +29,7 @@ const CreateProfile = () => {
     }
     const onSubmit = (e)=>{
         e.preventDefault()
-        dispatch(setProfile(formData))
+         dispatch(setProfile(formData))
         navigate('/dashboard')
 
     }

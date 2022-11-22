@@ -16,11 +16,10 @@ export const register = ({ name, email, password }) => {
       let response = await axios.post(uri, body, config);
       dispatch(authAction.registerSuccess(response.data));
     } catch (error) {
+      console.log(error.response.data.error)
       const errors = error.response.message
       if (errors) {
-        errors.forEach((error) =>
-          dispatch(alertAction.setAlert(setAlert({message:error.message,alertType: "danger"})))
-        );
+        dispatch(alertAction.setAlert({message:errors.response.data.error.message,alertType:'danger'}))
       }
       dispatch(authAction.registerFail());
       dispatch(authAction.authError())

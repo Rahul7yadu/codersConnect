@@ -23,7 +23,7 @@ try{
     const user =  await User.findOne({email})
     const isMatch = await bcrypt.compare(password,user.password)
 if(!isMatch){
-    return res.json({message:"invalid credentials"}).status(400)
+    return res.status(400).json({message:"invalid credentials"})
 }
      //creating jsonWebToken for the user and giving it back 
      const payload =  {
