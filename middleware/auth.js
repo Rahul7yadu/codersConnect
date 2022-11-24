@@ -8,10 +8,8 @@ const auth = (req, res, next) => {
         return res.send("please provide auth token").status(401)
     }
     try {
-        const decoded = jwt.verify(token, process.env.jwtSecret,(res,err)=>{
-            req.user = res
-            console.log()
-        })
+        const decoded = jwt.verify(token, process.env.jwtSecret)
+        req.user = decoded.user
         console.log(decoded)
 
 
