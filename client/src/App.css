@@ -1,12 +1,25 @@
 /* Global Styles */
-:root {
+/* :root {
     --primary-color: #17a2b8;
     --dark-color: #343a40;
     --light-color: #f4f4f4;
     --danger-color: #dc3545;
     --success-color: #28a745;
+  } */
+  :root{
+    --primary-color: #189AB4;
+    --dark-color: #05445E;
+    --light-color: #D4F1F4;
+    --danger-color: #e54353;
+    --success-color: #75E6DA;
   }
-  
+  :root{
+    --primary-dark:#635985;
+    --light-dark:#E5B8F4;
+    --dark-dark:#393053;
+    --danger-dark:#E94560;
+    --success-dark:#03C988;
+  }
   * {
     box-sizing: border-box;
     margin: 0;
@@ -290,7 +303,10 @@
   .form .social-input i.fa-linkedin {
     color: #0077b5;
   }
-  
+ .table{
+  border-style: solid;
+  border-color:grey
+ } 
   .table th,
   .table td {
     padding: 1rem;

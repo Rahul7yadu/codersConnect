@@ -22,7 +22,8 @@ app.use('/api/users',require("./routers/users.js"))
 app.use('/api/auth',require("./routers/auth.js"))
 app.use('/api/profile',require("./routers/profile.js"))
 app.use('/api/posts',require("./routers/posts.js"))
-
+app.use('/api/admin',require("./routers/admin"))
+app.use('/api/android',require("./routers/android"))
 // if(process.env.NODE_ENV==='production'){
     app.use(express.static('client/build'))
 

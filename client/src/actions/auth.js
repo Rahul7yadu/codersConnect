@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authAction, alertAction,profileAction } from "../store";
+import { authAction, alertAction,profileAction, adminAction } from "../store";
 import { setAlert } from "./alert";
 import setAuthToken from "../utils/setAuthToken";
 const uri = "/api/users";
@@ -69,6 +69,33 @@ return async (dispatch) => {
 }
 }
 
+export const AdminLogin = (userData)=>{
+  return async (dispatch)=>{
+
+      const body = JSON.stringify(userData)
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      try {
+      const res = await axios.post('/api/admin/login',body,config)
+      dispatch(adminAction.registerSuccess(res.data));
+        
+      } catch (error) {
+        
+        
+        const errors = error.message;
+        if (errors) {
+            dispatch(alertAction.setAlert({message:'invalid credentials', alertType:"danger"}))
+        }
+        dispatch(authAction.registerFail());
+        
+      }
+  }
+}
+
+
 // logout 
 export const logout = ()=>{
   return (dispatch)=>{
@@ -76,3 +103,5 @@ export const logout = ()=>{
     dispatch(profileAction.clearProfile())
   }
 }
+
+

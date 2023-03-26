@@ -8,7 +8,8 @@ import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import "./App.css";
 import setAuthToken from './utils/setAuthToken'
 import Alert from "./components/layout/Alert"
-import {loadUser } from './actions/auth'
+import { loadUser } from './actions/auth'
+import AdminLogin from './components/layout/AdminLogin'
 // redux
 import {useDispatch,useSelector} from 'react-redux'
 import AddProfile from "./components/layout/AddProfile";
@@ -21,13 +22,16 @@ import Profiles from './components/layout/Profiles/Profiles'
 import Posts from "./components/posts/Posts";
 import Post from './components/post/Post'
 import {PrivateRoute} from "./components/PrivateRoute";
+import { AdminDashboard } from "./components/dashboard/AdminDashboard";
 // localStorage.removeItem('token')
 
 
 function App() {
 const dispatch = useDispatch()
 const isAuthenticated = useSelector(state=>state.auth.isAuthenticated)
+
 const token = useSelector(state=>state.auth.token)
+
 useEffect(()=>{
   
  if (localStorage.token) {
@@ -68,8 +72,8 @@ if(isAuthenticated){
           <Route exact path='/create-profile' element = {<PrivateRoute component={<CreateProfile/>}/>}/>
           <Route exact path = '/register/add-profile' element = {<PrivateRoute component={<AddProfile></AddProfile>}/>}></Route>
           <Route exact path = '/edit-profile' element = {<PrivateRoute component={<EditProfile/>}/>}/>
-          
-
+          <Route exact path = '/admin/login' element = {<AdminLogin/>}></Route>
+          <Route exact path='/admin/dashboard' element={<AdminDashboard/>}></Route>
           <Route exact path = '/add-education' element = {<PrivateRoute component={<AddEducation/>}/>}></Route>
           <Route exact path = '/add-experience' element = {<PrivateRoute component ={<AddExperience/>}/>}></Route>
           <Route exact path = '/posts' element = {<PrivateRoute component={<Posts/>}/>} />

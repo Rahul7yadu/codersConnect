@@ -43,7 +43,7 @@ function Register({}) {
         
   return (
     <Fragment>
-<section className="container">
+<section className="container bg-light">
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
       <form className="form" onSubmit={e=>submitHandler(e)}>
@@ -60,7 +60,7 @@ function Register({}) {
         <div className="form-group">
           <input
             type="password"
-            placeholder="Password"
+          placeholder="Password"
             name="password"
             minLength="6"
             value={password} onChange = {e=>changeHandler(e)}

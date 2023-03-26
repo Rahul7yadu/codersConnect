@@ -1,10 +1,11 @@
+
 import React,{Fragment,useState} from 'react'
 import {Link,Navigate} from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
-import {loadUser, loginUser} from '../../actions/auth'
+import { AdminLogin as LoginAdmin } from '../../actions/admin'
 import Alert from './Alert'
-function Login() {
-  const isAuthenticated = useSelector(state=>state.auth.isAuthenticated)
+function AdminLogin() {
+  const isAuthenticated = useSelector(state=>state.admin.isAuthenticated)
   // 
 const dispatch = useDispatch()
     const [formData,setFormData] = useState({
@@ -20,18 +21,18 @@ const dispatch = useDispatch()
     const submitHandler=(e)=>{
         e.preventDefault()
         
-        dispatch(loginUser(formData))
+        dispatch(LoginAdmin(formData))
         // dispatch(loadUser())
         
     }
     if(isAuthenticated){
       
-      return <Navigate to = '/dashboard'/>
+      return <Navigate to = '/admin/dashboard'/>
     }
         
   return (
     <Fragment>
-<section className="container bg-light">
+<section className="container">
       <h1 className="large text-primary">Login into your account </h1>
       <p className="lead"><i className="fas fa-user"></i> Log in</p>
       <form className="form" onSubmit={e=>submitHandler(e)}>
@@ -55,9 +56,7 @@ const dispatch = useDispatch()
         
         <input type="submit" className="btn btn-primary" value="Login" />
       </form>
-      <p className="my-1">
-        Dont have an account? <Link to="/register">Register here</Link>
-      </p>
+      
       <Alert></Alert>
     </section>
 
@@ -65,4 +64,4 @@ const dispatch = useDispatch()
   )
 }
 
-export default Login
+export default AdminLogin 
