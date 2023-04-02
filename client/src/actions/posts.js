@@ -1,5 +1,7 @@
 import axios from "axios";
 import { alertAction, postAction } from "../store";
+import {db} from '../firebase'
+import {ref,set} from 'firebase/database'
 export const getPosts = () => {
   return async (dispatch) => {
     try {
@@ -52,11 +54,12 @@ export const deletePost = (id) => {
     }
   };
 };
-export const addPost = (formData) => {
+export const addPost = (formData,userId) => {
   const config = {
     headers: { "Content-type": "application/json" },
   };
   return async (dispatch) => {
+      await set(ref(db,'users/'+userId+'/posts'),formData)
     try {
       const res = await axios.post(
         `api/posts`,

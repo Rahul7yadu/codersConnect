@@ -17,7 +17,7 @@ const Dashboard = () => {
   useEffect(async () => {
     
     dispatch(getCurrentProfile());
-  }, [dispatch]);
+  }, [dispatch,isAuthenticated,loading]);
   
  
 
