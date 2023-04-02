@@ -10,6 +10,7 @@ const Profiles = () => {
     useEffect(()=>{
         dispatch(getAllProfiles())
     },[])
+    console.log(profiles)
   return (
     <div className='container'>
         {profiles.length<=0&&loading?<Spinner/>:(<>

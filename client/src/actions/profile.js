@@ -39,10 +39,11 @@ export const getAllProfiles =  () => {
     }
     try {
         const res = await axios.get("api/profile",config)
+        console.log(res.data)
         dispatch(profileAction.getAllProfiles(res.data))
     } catch (error) {
         
-        dispatch(profileAction.profileError(error))
+        // dispatch(profileAction.profileError(error))
     }
 
     }

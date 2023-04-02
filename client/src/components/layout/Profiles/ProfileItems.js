@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 const ProfileItems = ({profile:{user:{_id,name,avatar},status,company,location,skills}}) => {
+  
   return (
     <div className="profile bg-light">
         <img src = {avatar} className="round-img"/>

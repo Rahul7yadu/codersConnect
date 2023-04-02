@@ -1,15 +1,16 @@
 const mongoose = require('mongoose')
 const config = require('config')
 const db = config.get('mongoURI') || process.env.mongoUri
-mongoose.connect(db)
+const mUri="mongodb+srv://rahulyadu17:HJyA2W6burpAsFNn@cluster0.k4csh2w.mongodb.net/?retryWrites=true&w=majority"
+console.log(db)
+mongoose.set('strictQuery',true)
 
 const connectDb = async ()=>{
     try{
-            await mongoose.connect(db);
-
+           const mongoReturn= await mongoose.connect(mUri);
             
     }catch(e){
-            
+            console.log(e)
             process.exit(1)
     }
 }
