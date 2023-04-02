@@ -1,9 +1,13 @@
 import { alertAction, profileAction ,authAction} from "./../store";
+import {ref,set} from 'firebase/database'
+import { onAuthStateChanged } from "firebase/auth";
+import {auth, db} from '../firebase'
 import axios from "axios";
 export const getCurrentProfile = () => {
   return async(dispatch) => {
       try {
-          const res = await axios.get("api/profile/me");
+          const res = await axios.get("/api/profile/me");
+          console.log(res)
           dispatch(profileAction.getProfile(res.data))
       } catch (error) {
           dispatch(profileAction.profileError({msg:error.response.statusText,status:error.response.status}))
@@ -12,14 +16,18 @@ export const getCurrentProfile = () => {
 
   };
 };
-export const setProfile = (profile) => {
+export const setProfile = (profile,userId) => {
 return async (dispatch) => {
     const data = JSON.stringify(profile)
+    
+     
+  const some =   await set(ref(db,'users/'+userId+'/profile'),profile)
+ 
     const config = {
         headers: { 'Content-type':'application/json'}
     }
     try {
-        const res = await axios.post("api/profile/me",data,config)
+        const res = await axios.post("api/profile/me",data,config )
         dispatch(profileAction.setProfile(res.data))
             dispatch(alertAction.removeAlert())
         dispatch(alertAction.setAlert({message:'profile set succesfully',alertType:'success'}))

@@ -1,11 +1,25 @@
 import axios from "axios";
 import { authAction, alertAction,profileAction, adminAction } from "../store";
 import { setAlert } from "./alert";
+import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
+import {ref}  from "firebase/database"
+import {set} from "firebase/database"
+import { auth,db} from '../firebase'
 import setAuthToken from "../utils/setAuthToken";
 const uri = "/api/users";
 export const register = ({ name, email, password }) => {
   return async (dispatch) => {
     let body = { name, email, password };
+    try {
+      const user = await createUserWithEmailAndPassword(auth,email,password)
+      const userId = user.user.uid
+      const val = await set(ref(db,'users/'+userId),{name,email,password})
+      
+      console.log(user)  
+    } catch (error) {
+      return;
+    }
+   
     body = JSON.stringify(body);
     const config = {
       headers: {
@@ -45,7 +59,14 @@ export const loadUser = () => {
 
 export const loginUser = (userData)=>{
 return async (dispatch) => {
+
       const body = JSON.stringify(userData)
+      try{
+
+        const res = await signInWithEmailAndPassword(auth,userData.email,userData.password)
+      }catch(error){
+        console.log(error)
+      }
       const config = {
         headers: {
           "Content-type": "application/json",
