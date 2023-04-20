@@ -14,8 +14,6 @@ export const register = ({ name, email, password }) => {
       // const user = await createUserWithEmailAndPassword(auth,email,password)
       // const userId = user.user.uid
       // const val = await push(ref(db,'users/'+userId),{name,email,password})
-      
-      console.log(user)  
     } catch (error) {
     dispatch(alertAction.setAlert({message:error.message,alertType:'danger'}))
     }
