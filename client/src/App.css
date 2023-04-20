@@ -1,25 +1,25 @@
 /* Global Styles */
-/* :root {
-    --primary-color: #17a2b8;
-    --dark-color: #343a40;
-    --light-color: #f4f4f4;
+:root {
+    --primary-color: #044891d3;
+    --dark-color: #1e2021;
+    --light-color: #1681b62e;
     --danger-color: #dc3545;
     --success-color: #28a745;
-  } */
-  :root{
-    --primary-color: #189AB4;
-    --dark-color: #05445E;
+  }
+  /* :root{
+    --primary-color: white;
+    --dark-color: #020405;
     --light-color: #D4F1F4;
     --danger-color: #e54353;
     --success-color: #75E6DA;
   }
   :root{
-    --primary-dark:#635985;
-    --light-dark:#E5B8F4;
-    --dark-dark:#393053;
+    --primary-dark:#0b0a0c;
+    --light-dark:#dad4db;
+    --dark-dark:#55438a;
     --danger-dark:#E94560;
     --success-dark:#03C988;
-  }
+  } */
   * {
     box-sizing: border-box;
     margin: 0;
@@ -142,7 +142,8 @@
   .btn {
     display: inline-block;
     background: var(--light-color);
-    color: #333;
+    /* color: var(--dark-color); */
+    color:#333;
     padding: 0.4rem 1.3rem;
     font-size: 1rem;
     border: none;
@@ -177,7 +178,7 @@
   .badge-primary,
   .alert-primary {
     background: var(--primary-color);
-    color: #fff;
+    color: var(--primary-dark);
   }
   
   .btn-light,
@@ -185,7 +186,7 @@
   .badge-light,
   .alert-light {
     background: var(--light-color);
-    color: #333;
+    color: var(--primary-dark);
   }
   
   .btn-dark,
@@ -193,7 +194,7 @@
   .badge-dark,
   .alert-dark {
     background: var(--dark-color);
-    color: #fff;
+    color: var(--light-color);
   }
   
   .btn-danger,
@@ -476,7 +477,15 @@
     flex: 3;
     flex-basis: 20%;
   }
-  
+  /* admin dasboard users page */
+  .users{
+  display:  flex;
+  align-items: center;
+  justify-content: space-between;
+  }
+  .users img{
+    width: 100px;
+  }
   /* Posts Page */
   .post-form .post-form-header {
     background: var(--primary-color);

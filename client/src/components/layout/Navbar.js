@@ -4,33 +4,17 @@ import { useSelector,useDispatch } from "react-redux";
 import { logout } from "../../actions/auth";
 
 function Navbar() {
-  const [theme,setTheme] = useState('light')
+  // const [theme,setTheme] = useState('light')
   const dispatch = useDispatch()
   const isAuthenticated = useSelector(state=>state.auth.isAuthenticated)
+  const isAdminLoggedIn = useSelector(state=>state.admin.isAuthenticated)
   const loading = useSelector((state) => state.auth.loading);
   const logoutHandler = ()=>{
     dispatch(logout())
   }
-  const changeHandler = ()=>{
-  setTheme(prev=>prev=='light'?'dark':'light')
-  }
-  useEffect(()=>{
-    const root = document.querySelector(":root");
-    if(theme==='dark'){
-     
-    root.style.setProperty("--primary-color",' #B5F1CC')
-    root.style.setProperty("--dark-color","#C9F4AA")
-    root.style.setProperty("--light-color","#E5FDD1")
-    root.style.setProperty("--danger-color","#E94560")
-    root.style.setProperty("--success-color","#03C988")
-    }else{
-    root.style.setProperty("--primary-color",'#189AB4')
-    root.style.setProperty("--dark-color","#05445E")
-    root.style.setProperty("--light-color","#D4F1F4")
-    root.style.setProperty("--danger-color","#e54353")
-    root.style.setProperty("--success-color","#75E6DA")
-    }
-  },[theme])
+  // const changeHandler = ()=>{
+  // setTheme(prev=>prev=='light'?'dark':'light')
+  // }
   const guestLinks = (
     <ul>
       <li>
@@ -46,14 +30,19 @@ function Navbar() {
         <Link to ='/admin/login'>Admin login</Link>
       </li>
       <li>
-        <button
-            className="btn btn-primary"
-             onClick= {e=>changeHandler(e)}
-            >{theme=='light'?<i className="fa-solid fa-moon"></i>:<i className="fa-solid fa-sun"></i>}
-        </button>
       </li>
     </ul>
   );
+  const adminLinks = (
+    <ul>
+      <li>
+        <button onClick={logoutHandler}>
+        logout
+        </button>
+          
+      </li>
+    </ul>
+  )
   const authLinks = (
     <ul>
       <li><i className="fa-solid fa-address-card"></i>
@@ -83,7 +72,8 @@ function Navbar() {
         </Link>
       </h1>
       {
-        <Fragment>{!isAuthenticated||isAuthenticated===null ? guestLinks : authLinks}</Fragment>
+        <Fragment>{isAuthenticated || !isAuthenticated===null  ? authLinks : isAdminLoggedIn?adminLinks: guestLinks}</Fragment>
+        
       }
     </nav>
   );

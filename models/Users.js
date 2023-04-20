@@ -10,4 +10,5 @@ avatar:{required:false, type:String},
 date:{required:true, type:Date}
 })
 
+
 module.exports = User = mongoose.model('user',UserSchema) 

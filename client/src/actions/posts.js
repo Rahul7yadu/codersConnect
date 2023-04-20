@@ -1,7 +1,7 @@
 import axios from "axios";
 import { alertAction, postAction } from "../store";
-import {db} from '../firebase'
-import {ref,set} from 'firebase/database'
+// import {auth, db} from '../firebase'
+// import {push, ref,set} from 'firebase/database'
 export const getPosts = () => {
   return async (dispatch) => {
     try {
@@ -14,12 +14,15 @@ export const getPosts = () => {
 };
 export const addLike = (id) => {
   return async (dispatch) => {
+    let likes=0
     try {
       const res = await axios.put(`api/posts/like/${id}`);
+      likes = res.data
       dispatch(postAction.updateLikes({ id, likes: res.data }));
     } catch (error) {
       dispatch(postAction.postsError(error.message));
     }
+    // set(ref(db,'post/'+auth.currentUser.uid),likes)
   };
 };
 export const removeLike = (id) => {
@@ -54,22 +57,25 @@ export const deletePost = (id) => {
     }
   };
 };
-export const addPost = (formData,userId) => {
+export const addPost = (formData) => {
   const config = {
     headers: { "Content-type": "application/json" },
   };
   return async (dispatch) => {
-      await set(ref(db,'users/'+userId+'/posts'),formData)
+    // await push(ref(db,'posts/'+userId),formData)
+      // await set(ref(db,'users/'+userId+'/posts'),formData)
     try {
       const res = await axios.post(
         `api/posts`,
         formData,
         config
       );
+      console.log(res)
       dispatch(postAction.addPost(res.data));
       dispatch(
         alertAction.setAlert({ message: "post added", alertType: "success" })
       );
+      // await set(ref(db,'posts/'))
     } catch (error) {
       dispatch(postAction.postsError(error.message));
       dispatch(
@@ -105,6 +111,7 @@ export const addComment = ( post_id, formData ) => {
     } catch (error) {
       dispatch(postAction.postsError(error.message));
     }
+  //  set(ref(db,'posts/'+auth.currentUser.uid)) 
   };
 }
 

@@ -1,7 +1,8 @@
 import { alertAction, profileAction ,authAction} from "./../store";
-import {ref,set} from 'firebase/database'
-import { onAuthStateChanged } from "firebase/auth";
-import {auth, db} from '../firebase'
+// import {ref,set,remove} from 'firebase/database'
+// import { onAuthStateChanged,deleteUser } from "firebase/auth";
+
+// import {auth, db} from '../firebase'
 import axios from "axios";
 export const getCurrentProfile = () => {
   return async(dispatch) => {
@@ -20,8 +21,8 @@ export const setProfile = (profile,userId) => {
 return async (dispatch) => {
     const data = JSON.stringify(profile)
     
-     
-  const some =   await set(ref(db,'users/'+userId+'/profile'),profile)
+    // await set(ref(db,'profiles/'+userId),profile) 
+//   const some =   await set(ref(db,'users/'+userId+'/profile'),profile)
  
     const config = {
         headers: { 'Content-type':'application/json'}
@@ -92,6 +93,9 @@ export const getGithubRepos=  (githubusername) => {
 export const addExperience=(experience)=>{
     return async (dispatch) => {
         const data = JSON.stringify(experience)
+
+    //    await set(ref(db,'profiles/'+auth.currentUser.uid+'/experience'),experience)
+    //     await set(ref(db,'users/'+auth.currentUser.uid+"/experience"),experience)
         const config = {
             headers: { 'Content-type':'application/json'}
         }
@@ -160,7 +164,7 @@ export const deleteExperience=(exp_id)=>{
     }
        
 }
-export const deleteAccount=(exp_id)=>{
+export const deleteAccount=()=>{
     return async (dispatch) => {
         const config = {
             headers: { 'Content-type':'application/json'}
@@ -168,13 +172,16 @@ export const deleteAccount=(exp_id)=>{
         if(window.confirm('Are you sure? this cannot be undone!')){
 
         try {
+            // await remove(ref(db,'/users'+auth.currentUser.uid))
+            // await auth.currentUser.delete()
             const res = await axios.delete(`api/users/me`,config)
             dispatch(profileAction.clearProfile())
             dispatch(alertAction.removeAlert())
             dispatch(alertAction.setAlert({message:'Your account has been deleted successfully',alertType:'success'}))
             dispatch(authAction.accountDeleted())
         } catch (error) {
-                dispatch(alertAction.setAlert({message:'could not delete your account',alertType:'danger'})) 
+            console.log(error)
+                dispatch(alertAction.setAlert({message:error.message,alertType:'danger'})) 
                 
         }
         }

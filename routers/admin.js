@@ -1,7 +1,9 @@
 const express = require('express')
 const Users = require('../models/Users')
+const Posts = require('../models/Posts')
 const jwt = require('jsonwebtoken')
 const auth = require('../middleware/auth')
+const Profile = require('../models/Profile')
 
 const Routes = express.Router()
 
@@ -13,7 +15,7 @@ Routes.post('/login',(req,res)=>{
              res.json({token})
         })
     }else{
-        res.json({msg:'invalid credentials'}).status(301)
+        res.status(400).json({msg:'invalid credentials'})
         return;
     }
 
@@ -24,4 +26,18 @@ Routes.get('/',auth,async (req,res)=>{
     res.json(users)
 })
 
+Routes.delete('/user/:id',auth,async(req,res)=>{
+    await Profile.findOneAndRemove({user:req.params.id})
+await Users.findOneAndRemove({_id:req.params.id})
+res.json({msg:"user deleted"})
+})
+Routes.get('/posts',auth,async(req,res)=>{
+    const posts = await Posts.find()
+    res.json(posts)
+})
+
+Routes.delete('/posts/:id',auth,async(req,res)=>{
+    await Posts.findOneAndRemove({_id:req.params.id})
+    res.json({'msg':'post deleted'})
+})
 module.exports =Routes

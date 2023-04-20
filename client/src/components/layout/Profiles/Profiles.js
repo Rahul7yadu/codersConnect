@@ -10,7 +10,6 @@ const Profiles = () => {
     useEffect(()=>{
         dispatch(getAllProfiles())
     },[])
-    console.log(profiles)
   return (
     <div className='container'>
         {profiles.length<=0&&loading?<Spinner/>:(<>
@@ -20,7 +19,7 @@ const Profiles = () => {
         </p>
         <div className = 'profiles'>
             {loading&&<Spinner/>}
-            {profiles.length>0? profiles.map((profile)=><ProfileItems key={profile._id} profile = {profile}/>) :(<h4>No profile found</h4>)}
+            {profiles.length>0? profiles.map((profile)=><ProfileItems key={profile._id} profile = {profile}/>) :(<Spinner/>)}
         </div>
         </>)}
     </div>

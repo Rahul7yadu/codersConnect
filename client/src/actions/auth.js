@@ -1,23 +1,23 @@
 import axios from "axios";
 import { authAction, alertAction,profileAction, adminAction } from "../store";
 import { setAlert } from "./alert";
-import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
-import {ref}  from "firebase/database"
-import {set} from "firebase/database"
-import { auth,db} from '../firebase'
+// import { createUserWithEmailAndPassword,signInWithEmailAndPassword ,updateProfile} from "firebase/auth";
+// import {ref}  from "firebase/database"
+// import {set,get,getDatabase,push} from "firebase/database"
+// import { auth,db} from '../firebase'
 import setAuthToken from "../utils/setAuthToken";
 const uri = "/api/users";
 export const register = ({ name, email, password }) => {
   return async (dispatch) => {
     let body = { name, email, password };
     try {
-      const user = await createUserWithEmailAndPassword(auth,email,password)
-      const userId = user.user.uid
-      const val = await set(ref(db,'users/'+userId),{name,email,password})
+      // const user = await createUserWithEmailAndPassword(auth,email,password)
+      // const userId = user.user.uid
+      // const val = await push(ref(db,'users/'+userId),{name,email,password})
       
       console.log(user)  
     } catch (error) {
-      return;
+    dispatch(alertAction.setAlert({message:error.message,alertType:'danger'}))
     }
    
     body = JSON.stringify(body);
@@ -48,7 +48,9 @@ export const loadUser = () => {
       setAuthToken(localStorage.getItem('token'));
     
     try {
+       
       const res = await axios.get('api/users');
+      
       dispatch(authAction.userLoaded(res.data));
     } catch (error) {
       dispatch(authAction.authError());
@@ -61,12 +63,12 @@ export const loginUser = (userData)=>{
 return async (dispatch) => {
 
       const body = JSON.stringify(userData)
-      try{
+      // try{
 
-        const res = await signInWithEmailAndPassword(auth,userData.email,userData.password)
-      }catch(error){
-        console.log(error)
-      }
+      //   const res = await signInWithEmailAndPassword(auth,userData.email,userData.password)
+      // }catch(error){
+      //   console.log(error)
+      // }
       const config = {
         headers: {
           "Content-type": "application/json",
@@ -75,7 +77,6 @@ return async (dispatch) => {
       try {
       const res = await axios.post('api/auth',body,config)
       dispatch(authAction.registerSuccess(res.data));
-        
       } catch (error) {
         
         
@@ -120,7 +121,9 @@ export const AdminLogin = (userData)=>{
 // logout 
 export const logout = ()=>{
   return (dispatch)=>{
+    dispatch(adminAction.logout())
     dispatch(authAction.logout());
+    
     dispatch(profileAction.clearProfile())
   }
 }

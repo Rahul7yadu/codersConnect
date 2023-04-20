@@ -1,17 +1,19 @@
 import React from 'react'
-import {Link, Navigate} from 'react-router-dom'
-
-import {useSelector} from 'react-redux';
+import { Link, Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 function Landing() {
-  const isAuthenticated = useSelector(state=>state.auth.isAuthenticated)
-  if(isAuthenticated){
-    return <Navigate to = '/dashboard'/>
-  }
-  return (
-    <section className="landing">
+
+
+
+const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+if (isAuthenticated) {
+  return <Navigate to='/dashboard' />
+}
+return (
+  <section className="landing">
     <div className="dark-overlay">
       <div className="landing-inner">
-    <h1 className="x-large">Coderz Connector 2.0  </h1>
+        <h1 className="x-large">Coderz Connector 2.0  </h1>
         <p className="lead">
           Create a developer profile/portfolio, share posts and get help from
           other developers
@@ -23,7 +25,7 @@ function Landing() {
       </div>
     </div>
   </section>
-  )
+)
 }
 
 export default Landing

@@ -3,7 +3,7 @@ import Moment from "react-moment";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addLike, removeLike, deletePost } from "../../actions/posts";
-const PostItem = ({post,showAction=true}) => {
+const PostItem = ({post,showAction=true,children}) => {
   const { _id, text, name, avatar, user, likes, comments, date } = post
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -55,6 +55,7 @@ const PostItem = ({post,showAction=true}) => {
             </button>
           )}
           </>}
+          {children}
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import { useSelector, useDispatch} from "react-redux";
 import {useState} from 'react'
 import { addPost } from "../../actions/posts";
-import {auth} from '../../firebase'
 const PostForm = () => {
   const [text,setText] = useState('')
   const dispatch = useDispatch()
@@ -14,7 +13,7 @@ const PostForm = () => {
         </div>
         <form className="form my-1" onSubmit={(e)=>{
             e.preventDefault()
-            dispatch(addPost({text},auth.currentUser.uid))
+            dispatch(addPost({text}))
             setText('')
         }}>
           <textarea

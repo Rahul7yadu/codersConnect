@@ -84,9 +84,11 @@ routes.delete('/:post_id',auth,async (req,res)=>{
         res.json(post)
         
     } catch (error) {
-        if(error.kind === 'ObjectId') res.json({msg:'post not found'})
+        if(error.kind === 'ObjectId') {
+            res.json({msg:'post not found'})
+        }
         
-        res.status(500).send('server error')
+       else res.status(500).send('server error')
     }
   })
 

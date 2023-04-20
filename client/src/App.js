@@ -72,7 +72,7 @@ if(isAuthenticated){
           <Route exact path = '/register/add-profile' element = {<PrivateRoute component={<AddProfile></AddProfile>}/>}></Route>
           <Route exact path = '/edit-profile' element = {<PrivateRoute component={<EditProfile/>}/>}/>
           <Route exact path = '/admin/login' element = {<AdminLogin/>}></Route>
-          <Route exact path='/admin/dashboard' element={<AdminDashboard/>}></Route>
+          <Route exact path='/admin/dashboard' element={<PrivateRoute component={<AdminDashboard/>}/>}></Route>
           <Route exact path = '/add-education' element = {<PrivateRoute component={<AddEducation/>}/>}></Route>
           <Route exact path = '/add-experience' element = {<PrivateRoute component ={<AddExperience/>}/>}></Route>
           <Route exact path = '/posts' element = {<PrivateRoute component={<Posts/>}/>} />
