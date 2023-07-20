@@ -7,6 +7,7 @@ const PostItem = ({post,showAction=true,children}) => {
   const { _id, text, name, avatar, user, likes, comments, date } = post
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
   return (
     <div>
       

@@ -8,19 +8,17 @@ import Education from "./Education";
 import Experience from './Experience'
 import {deleteAccount} from '../../actions/profile'
 import './dashboard.css'
-import {auth} from '../../firebase'
 const x = true;
 const Dashboard = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.profile.loading);
-
+  
   const user = useSelector((state) => state.auth.user);
   const profile = useSelector((state) => state.profile.profile);
   useEffect(async () => {
-    
     dispatch(getCurrentProfile());
-  }, []);
+  }, [loading,profile]) ;
   
  
 

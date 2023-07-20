@@ -24,7 +24,7 @@ import Post from './components/post/Post'
 import {PrivateRoute} from "./components/PrivateRoute";
 import { AdminDashboard } from "./components/dashboard/AdminDashboard";
 // localStorage.removeItem('token')
-import {onAuthStateChanged} from 'firebase/auth'
+// import {onAuthStateChanged} from 'firebase/auth'
 function App() {
 const dispatch = useDispatch()
 const isAuthenticated = useSelector(state=>state.auth.isAuthenticated)

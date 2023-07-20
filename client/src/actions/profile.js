@@ -17,7 +17,7 @@ export const getCurrentProfile = () => {
 
   };
 };
-export const setProfile = (profile,userId) => {
+export const setProfile = (profile) => {
 return async (dispatch) => {
     const data = JSON.stringify(profile)
     

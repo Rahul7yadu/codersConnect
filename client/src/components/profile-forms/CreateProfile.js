@@ -2,8 +2,6 @@ import React,{useEffect, useState} from 'react'
 import {Link,useNavigate} from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
 import { setProfile } from '../../actions/profile';
-import {auth} from '../../firebase'
-import { onAuthStateChanged } from 'firebase/auth';
 const initialState = {
     company: '',
     website: '',
@@ -23,13 +21,6 @@ const CreateProfile = () => {
   const profile = useSelector(state=>state.profile.profile)
   let userId;
 
-  useEffect(()=>{
-    
-    onAuthStateChanged(auth,(user)=>{
-      userId = user.uid
-    })
-    
-  })
   
     const [social,setSocial] = useState(false)
     const [formData,setFormData] = useState(initialState)
